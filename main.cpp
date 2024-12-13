@@ -75,6 +75,16 @@ public:
         }
     }
 
+    void displayAllPaths() {
+        vector<string> path;
+        int totalDuration = 0;
+        for (const auto& [name, _] : tasks) {
+            if (predecessors[name].empty()) {
+                findPaths(name, path, totalDuration);
+            }
+        }
+    }
+
 private:
     vector<string> topologicalSort() {
         map<string, int> inDegree;
@@ -106,6 +116,27 @@ private:
             }
         }
         return order;
+    }
+
+    void findPaths(const string& current, vector<string>& path, int totalDuration) {
+        path.push_back(current);
+        totalDuration += tasks[current].duration;
+
+        if (graph[current].empty()) {
+            // Leaf node
+            cout << "Path: ";
+            for (size_t i = 0; i < path.size(); ++i) {
+                cout << path[i];
+                if (i < path.size() - 1) cout << " -> ";
+            }
+            cout << ", Duration: " << totalDuration << "\n";
+        } else {
+            for (const string& succ : graph[current]) {
+                findPaths(succ, path, totalDuration);
+            }
+        }
+
+        path.pop_back();
     }
 };
 
@@ -147,6 +178,9 @@ int main() {
 
     cpm.calculate();
     cpm.displayTasks();
+
+    cout << "All Paths and their Durations:\n";
+    cpm.displayAllPaths();
 
     auto criticalPath = cpm.getCriticalPath();
     cout << "Critical Path: ";
