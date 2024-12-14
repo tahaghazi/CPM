@@ -70,8 +70,8 @@ public:
         cout << "Task\tDuration\tES\tEF\tLS\tLF\n";
         for (const auto& [_, task] : tasks) {
             cout << task.name << "\t   " << task.duration << "\t\t"
-                 << task.earliestStart << "\t" << task.earliestFinish << "\t"
-                 << task.latestStart << "\t" << task.latestFinish << "\n";
+                    << task.earliestStart << "\t" << task.earliestFinish << "\t"
+                    << task.latestStart << "\t" << task.latestFinish << "\n";
         }
     }
 
