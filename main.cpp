@@ -69,7 +69,7 @@ public:
     void displayTasks() {
         cout << "Task\tDuration\tES\tEF\tLS\tLF\n";
         for (const auto& [_, task] : tasks) {
-            cout << task.name << "\t" << task.duration << "\t\t"
+            cout << task.name << "\t   " << task.duration << "\t\t"
                  << task.earliestStart << "\t" << task.earliestFinish << "\t"
                  << task.latestStart << "\t" << task.latestFinish << "\n";
         }
@@ -78,7 +78,7 @@ public:
     void displayAllPaths() {
         vector<string> path;
         int totalDuration = 0;
-        for (const auto& [name, _] : tasks) {
+        for (const auto &[name, _]: tasks) {
             if (predecessors[name].empty()) {
                 findPaths(name, path, totalDuration);
             }
@@ -118,7 +118,7 @@ private:
         return order;
     }
 
-    void findPaths(const string& current, vector<string>& path, int totalDuration) {
+    void findPaths(const string &current, vector<string> &path, int totalDuration) {
         path.push_back(current);
         totalDuration += tasks[current].duration;
 
@@ -131,7 +131,7 @@ private:
             }
             cout << ", Duration: " << totalDuration << "\n";
         } else {
-            for (const string& succ : graph[current]) {
+            for (const string &succ: graph[current]) {
                 findPaths(succ, path, totalDuration);
             }
         }
